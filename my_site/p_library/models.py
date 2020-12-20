@@ -46,8 +46,8 @@ class Book(models.Model):
     copy_count = models.SmallIntegerField(default=1)
     price = models.DecimalField(decimal_places=2, max_digits=19, null=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)  # models.CASCADE say that if Author was delete all
-    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, null=True, blank=True, related_name='books')
-    friend = models.ForeignKey(Friend, on_delete=models.CASCADE, null=True, blank=True, related_name='books')
+    publisher = models.ForeignKey(Publisher, on_delete=models.SET_NULL, null=True, blank=True, related_name='books')
+    friend = models.ForeignKey(Friend, on_delete=models.SET_NULL, null=True, blank=True, related_name='books')
 
     class Meta:
         verbose_name = "Книга"  # name in admin panel
