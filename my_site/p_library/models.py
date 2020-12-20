@@ -27,6 +27,17 @@ class Publisher(models.Model):
         return f'{self.name} \n'
 
 
+class Friend(models.Model):
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Друг"
+        verbose_name_plural = "Друзья"
+
+    def __str__(self):
+        return f'{self.name} \n'
+
+
 class Book(models.Model):
     ISBN = models.CharField(max_length=13)
     title = models.TextField()
@@ -35,8 +46,8 @@ class Book(models.Model):
     copy_count = models.SmallIntegerField(default=1)
     price = models.DecimalField(decimal_places=2, max_digits=19, null=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)  # models.CASCADE say that if Author was delete all
-    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, null=True, blank=True)
-    # book with id author was delete too
+    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, null=True, blank=True, related_name='books')
+    friend = models.ForeignKey(Friend, on_delete=models.CASCADE, null=True, blank=True, related_name='books')
 
     class Meta:
         verbose_name = "Книга"  # name in admin panel

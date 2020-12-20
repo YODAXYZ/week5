@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
-from p_library.models import Book, Author, Publisher
+from p_library.models import Book, Author, Publisher, Friend
 from django.template import loader
 from p_library.forms import AuthorForm
 from django.views.generic import CreateView, ListView
@@ -34,6 +34,14 @@ def index(request):
     biblio_data = {"title": "мою библиотеку",
                    "books_count": books_count,
                    "books": books}
+    return HttpResponse(template.render(biblio_data, request))
+
+
+def friend_with_book(request):
+    template = loader.get_template('friend_book.html')
+    books_with_friend = Book.objects.exclude(friend=None)
+    friends = Friend.objects.all()
+    biblio_data = {'books_with_friend': books_with_friend, 'friends': friends}
     return HttpResponse(template.render(biblio_data, request))
 
 

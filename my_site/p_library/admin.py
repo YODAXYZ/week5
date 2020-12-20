@@ -1,5 +1,5 @@
 from django.contrib import admin
-from p_library.models import Book, Author, Publisher
+from p_library.models import Book, Author, Publisher, Friend
 
 
 @admin.register(Book)
@@ -9,7 +9,8 @@ class BookAdmin(admin.ModelAdmin):
         return obj.author.full_name
 
     list_display = ('title', 'author_full_name',)
-    fields = ('ISBN', 'title', 'description', 'year_release', 'author', 'price', 'copy_count', 'publisher')
+    fields = ('ISBN', 'title', 'description', 'year_release', 'author', 'price', 'copy_count', 'publisher', 'friend')
+    # exclude =
     # if we don't use
     # copy_count here, it will be not changed from admin panel
 
@@ -23,4 +24,8 @@ class AuthorAdmin(admin.ModelAdmin):
 class PublisherAdmin(admin.ModelAdmin):
     pass
 
+
+@admin.register(Friend)
+class FriendAdmin(admin.ModelAdmin):
+    pass
 
